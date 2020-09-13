@@ -1,7 +1,7 @@
 import dash, pickle, json, re, os
 import dash_core_components as dcc
 import dash_html_components as html
-import dash_table_experiments as dt
+import dash_table as dt
 import numpy as np
 import dashCLASSIFIER as cf
 import collections as coll
@@ -59,7 +59,7 @@ app.layout = html.Div([
                 **Learning process** consists of supplying the algorithm with training dataset - samples (text documents) with assigned category.
                 Algorithm will count the frequency of each word in the samples for assigned category and also counts all these samples for each category.  
                 **Classification process** of probability computation is expressed in the following formula:""", 
-                containerProps={'style': {'text-align': 'justify', 'font-family': 'Helvetica'}}),
+                style={'text-align': 'justify', 'font-family': 'Helvetica'}),
     
         html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
             style={
@@ -72,7 +72,7 @@ app.layout = html.Div([
         w_i - word actually being computed  
         K - number of categories  
         n - number of words in sample""", 
-        containerProps={'style': {'display': 'inline-block', 'font-family': 'Helvetica'}}),
+        style={'display': 'inline-block', 'font-family': 'Helvetica'}),
 
         dcc.Markdown("""**Explanation:** We are looking for the highest probable category (y^) into which the unknown sample may belong to.
         For each of the (K) categories algorithm does probability computation which consists of multiplication of these two probabilities:  
@@ -83,7 +83,7 @@ app.layout = html.Div([
         in C_k category divided by total amount of words in C_k category.  
     + There is problem though with likelihood computation where a single zero word occurence would result in zero likelihood probability.
         Therefore, we need to replace these zero occurence probabilities with either chosen rational number parameter as resulting probability or by Laplace smoothing,
-        which will add one occurence to all category word frequencies.""", containerProps={'style': {'text-align': 'justify', 'font-family': 'Helvetica'}}),
+        which will add one occurence to all category word frequencies.""", style={'text-align': 'justify', 'font-family': 'Helvetica'}),
     ],
     style={
         'paddingLeft': '100px',
@@ -94,11 +94,11 @@ app.layout = html.Div([
     
     # left side section (intro, classification, report)
     html.Div([
-        dcc.Markdown('## Classification parameters and results', containerProps={'style': {'text-align': 'center'}}),
+        dcc.Markdown('## Classification parameters and results', style={'text-align': 'center'}),
 
         dcc.Markdown("""Used datasets (news, ohsu, revs) are divided into **training(75%)** and **testing(25%)** datasets.  
             **Choose three categories** from which we will pick training data for training and testing data for classification.""",
-            containerProps={'style': {'font-family': 'Helvetica'}}),
+            style={'font-family': 'Helvetica'}),
         dcc.Dropdown(
             id='dropdown-categorySelection',
             options= [{'label': str(category),'value': str(category)} for category in priors],
@@ -166,7 +166,7 @@ app.layout = html.Div([
         html.Br(),
 
         # classification report of 3 chosen categories
-        dcc.Markdown('### Classification report ', containerProps={'style': {'display': 'inline-block', 'font-family': 'Helvetica'}}),
+        dcc.Markdown('### Classification report ', style={'display': 'inline-block', 'font-family': 'Helvetica'}),
         # tooltip about score metrics
         html.Abbr("[?]", 
             title="Precision - Probability that classified sample to this category was classified correctly \
@@ -184,14 +184,14 @@ app.layout = html.Div([
 
         html.Div([
             dt.DataTable(
-                rows = [{},{},{}],
+                # TODO: ####rows = [{},{},{}],
                 #sortable=True,
                 editable=False,
-                selected_row_indices=[3],
+                # TODO: ####selected_row_indices=[3],
                 #row_selectable=False,
                 #enable_drag_and_drop=False,
                 id='dataTable-scoreMetrics',
-                column_widths=[200, 75, 75, 75, 75, 75]
+                # TODO: ####column_widths=[200, 75, 75, 75, 75, 75]
             )],
             style={'width': '600'}
         ),
@@ -216,7 +216,7 @@ app.layout = html.Div([
 
     # right side section for prior and word frequencies/likelihood graphs
     html.Div([
-        dcc.Markdown('## Properties of training dataset', containerProps={'style': {'text-align': 'center'}}),
+        dcc.Markdown('## Properties of training dataset', style={'text-align': 'center'}),
 
         # bar graph of priors
         dcc.Graph(
@@ -263,7 +263,7 @@ app.layout = html.Div([
 
     # div for word freq/imp graph
     html.Div([
-        dcc.Markdown('## Features of training dataset', containerProps={'style': {'text-align': 'center'}}),
+        dcc.Markdown('## Features of training dataset', style={'text-align': 'center'}),
             
         # word freq/imp selecion
         dcc.RadioItems(
@@ -300,8 +300,13 @@ app.layout = html.Div([
 
         # tab selection for different view of the graph
         dcc.Tabs(
-            tabs=[{'label': 'Tab {}'.format(i), 'value': i} for i in range(1, 3)],
-            value=2,
+            dcc.Tabs([
+                dcc.Tab(label='Tab 1'),
+                dcc.Tab(label='Tab 2'),
+                dcc.Tab(label='Tab 3'),
+            ]),
+            # FIXED: ####tabs=[{'label': 'Tab {}'.format(i), 'value': i} for i in range(1, 3)],
+            value='2',
             id='tabs-select'
         ),
 
@@ -387,7 +392,7 @@ app.layout = html.Div([
         # graph of uniqueness of words for each category
         html.Div(id='div-wordImportances3', style={'boxShadow': '0px 0px 5px 5px rgba(204,204,204,0.4)'}),
 
-        dcc.Markdown('### Text of sample', containerProps={'style': {'textAlign': 'center'}}),
+        dcc.Markdown('### Text of sample', style={'textAlign': 'center'}),
 
         # text of selected sample also influenced with range selection
         html.Div(id='div-sampleText',

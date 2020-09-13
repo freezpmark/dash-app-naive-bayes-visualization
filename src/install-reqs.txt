@@ -1,15 +1,7 @@
-pip install dash==0.21.0
-pip install dash-renderer==0.12.1
-pip install dash-html-components==0.10.0
-pip install dash-core-components==0.22.1
-
-pip install plotly --upgrade
-pip install dash-table-experiments
-pip install dash-core-components==0.13.0-rc4
-pip install numpy
-
-pip install jupyter
-pip install scipy
-pip install sklearn
-pip install matplotlib
-pip install seaborn
+dash
+numpy
+jupyter
+scipy
+sklearn
+matplotlib
+seaborn
