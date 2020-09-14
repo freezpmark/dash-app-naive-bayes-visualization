@@ -1,4 +1,4 @@
-### Interactive tutorials in machine learning (2018) - Abstract of Bachelor's Thesis:
+### Abstract of Bachelor's Thesis - Interactive tutorials in machine learning (2018)
 The aim of the bachelor thesis is to provide basic overview of machine learning and its used
 approaches. The greatest emphasis will be placed upon classification methods, in which will be
 used two different algorithms focusing on the text data in particular. The main task will be to
