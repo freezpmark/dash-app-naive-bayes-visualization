@@ -10,4 +10,5 @@ providing extensive interactive visualizations to allow deep tracking of its com
 through web application. By using interaction elements, we will be able to experiment with
 different algorithm configurations and observe relationships between data samples and its attributes
 via graphs.  
+
 (Python, Dash framework, Jupyter Notebook, HTML, CSS)
