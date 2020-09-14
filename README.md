@@ -1,4 +1,4 @@
-### Interactive tutorials in machine learning (2018) - Bachelor thesis abstract:
+### Interactive tutorials in machine learning (2018) - Abstract of Bachelor's Thesis:
 The aim of the bachelor thesis is to provide basic overview of machine learning and its used
 approaches. The greatest emphasis will be placed upon classification methods, in which will be
 used two different algorithms focusing on the text data in particular. The main task will be to
@@ -9,4 +9,5 @@ visualizations. The greatest attention will be paid to the Naive Bayesian classi
 providing extensive interactive visualizations to allow deep tracking of its computational processes
 through web application. By using interaction elements, we will be able to experiment with
 different algorithm configurations and observe relationships between data samples and its attributes
-via graphs. (Python, Dash framework, Jupyter Notebook, HTML, CSS)
+via graphs.  
+(Python, Dash framework, Jupyter Notebook, HTML, CSS)
