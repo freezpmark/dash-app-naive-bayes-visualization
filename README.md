@@ -1,3 +1,5 @@
+<img src="https://github.com/FrizzLi/Machine-Learning/blob/master/Dash_app3.jpg"/>  
+
 ### Abstract of Bachelor's Thesis - Interactive tutorials in machine learning (2018)
 The aim of the bachelor thesis is to provide basic overview of machine learning and its used
 approaches. The greatest emphasis will be placed upon classification methods, in which will be
@@ -12,10 +14,7 @@ different algorithm configurations and observe relationships between data sample
 via graphs.  
 
 (Python, Dash framework, Jupyter Notebook, HTML, CSS)  
-
-<img src="https://github.com/FrizzLi/Machine-Learning/blob/master/Dash_app3.jpg"/>  
   
-
 <b>Note:</b> Web application's code is outdated since it was implemented in the early stages of Dash framework. My version had been using experimental parts of library and there were other changes that broke the code. Might get updated sometime in the future.
 
 <!--- old description
