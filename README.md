@@ -12,6 +12,8 @@ different algorithm configurations and observe relationships between data sample
 via graphs.  
 
 (Python, Dash framework, Jupyter Notebook, HTML, CSS)  
+
+<img src="https://github.com/FrizzLi/Machine-Learning/blob/master/Dash_app3.jpg"/>  
   
 
 <b>Note:</b> Web application's code is outdated since it was implemented in the early stages of Dash framework. My version had been using experimental parts of library and there were other changes that broke the code. Might get updated sometime in the future.
