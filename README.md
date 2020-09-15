@@ -11,4 +11,7 @@ through web application. By using interaction elements, we will be able to exper
 different algorithm configurations and observe relationships between data samples and its attributes
 via graphs.  
 
-(Python, Dash framework, Jupyter Notebook, HTML, CSS)
+(Python, Dash framework, Jupyter Notebook, HTML, CSS)  
+
+
+<b>Note:</b> Web application's code is outdated since it was implemented in the early stages of Dash framework. My version had been using experimental parts of libraries and there were other changes that broke the code. Might get updated sometime in the future.
