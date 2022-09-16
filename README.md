@@ -1,4 +1,4 @@
-<img src="https://github.com/FrizzLi/Machine-Learning/blob/master/Dash_app3.jpg"/>  
+<img src="https://github.com/FrizzLi/Machine-Learning/blob/master/image_dash_app.jpg"/>  
 
 ### Abstract of Bachelor's Thesis - Interactive tutorials in machine learning (2018)
 The aim of the bachelor thesis is to provide basic overview of machine learning and its used
