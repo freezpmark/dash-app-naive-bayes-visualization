@@ -2,4 +2,5 @@
 
 ### Note:
 Web application's code is outdated since it was implemented in the early stages of Dash framework. My version had been using experimental parts of library and there were other changes that broke the code.
+
 I plan on updating it soon with proper README!
