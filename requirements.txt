@@ -2,6 +2,6 @@ dash
 numpy
 jupyter
 scipy
-sklearn
+scikit-learn
 matplotlib
 seaborn

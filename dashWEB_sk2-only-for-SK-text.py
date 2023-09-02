@@ -3,7 +3,7 @@ from dash import dcc
 from dash import html
 from dash import dash_table as dt
 import numpy as np
-import dashCLASSIFIER as cf
+from src import dashCLASSIFIER as cf
 import collections as coll
 
 stopWord = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', 'her', 'hers', 'herself', 'it', 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that', 'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 
@@ -37,14 +37,14 @@ def makeAxis(title, minPerc):
     }
 
 import base64
-with open(os.path.join("images", "NBclassifier.png"), "rb") as handle:
+with open(os.path.join("src", "images", "NBclassifier.png"), "rb") as handle:
     encoded_image = base64.b64encode(handle.read())
 
-with open(os.path.join("datasets", "dashjupy-likelihood"), "rb") as handle:
+with open(os.path.join("src", "datasets", "dashjupy-likelihood"), "rb") as handle:
     likelihood = pickle.loads(handle.read())            # likelihood[className][word]   {counted}
-with open(os.path.join("datasets", "dashjupy-priors"), "rb") as handle:
+with open(os.path.join("src", "datasets", "dashjupy-priors"), "rb") as handle:
     priors = pickle.loads(handle.read())                # prior[className]              {counted}
-with open(os.path.join("datasets", "dashjupy-content"), "rb") as handle:
+with open(os.path.join("src", "datasets", "dashjupy-content"), "rb") as handle:
     content = pickle.loads(handle.read())               # content[className][sampleName][words(list)]
 
 app = dash.Dash()
