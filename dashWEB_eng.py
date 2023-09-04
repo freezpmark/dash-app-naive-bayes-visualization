@@ -3,7 +3,7 @@ from dash import dcc
 from dash import html
 from dash import dash_table as dt
 import numpy as np
-import dashCLASSIFIER as cf
+from src import dashCLASSIFIER as cf
 import collections as coll
 
 stopWord = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', 'her', 'hers', 'herself', 'it', 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that', 'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 
@@ -37,14 +37,14 @@ def makeAxis(title, minPerc):
     }
 
 import base64
-with open(os.path.join("images", "NBclassifier.png"), "rb") as handle:
+with open(os.path.join("src", "images", "NBclassifier.png"), "rb") as handle:
     encoded_image = base64.b64encode(handle.read())
 
-with open(os.path.join("datasets", "dashjupy-likelihood"), "rb") as handle:
+with open(os.path.join("src", "datasets", "dashjupy-likelihood"), "rb") as handle:
     likelihood = pickle.loads(handle.read())            # likelihood[className][word]   {counted}
-with open(os.path.join("datasets", "dashjupy-priors"), "rb") as handle:
+with open(os.path.join("src", "datasets", "dashjupy-priors"), "rb") as handle:
     priors = pickle.loads(handle.read())                # prior[className]              {counted}
-with open(os.path.join("datasets", "dashjupy-content"), "rb") as handle:
+with open(os.path.join("src", "datasets", "dashjupy-content"), "rb") as handle:
     content = pickle.loads(handle.read())               # content[className][sampleName][words(list)]
 
 app = dash.Dash()
@@ -182,17 +182,32 @@ app.layout = html.Div([
             }
         ),
 
-        html.Div([
-            dt.DataTable(
-                # TODO: ####rows = [{},{},{}],
-                #sortable=True,
-                editable=False,
-                # TODO: ####selected_row_indices=[3],
-                #row_selectable=False,
-                #enable_drag_and_drop=False,
-                id='dataTable-scoreMetrics',
-                # TODO: ####column_widths=[200, 75, 75, 75, 75, 75]
-            )],
+        html.Div(
+            # [
+            #     dt.DataTable(
+            #         # TODO: ####rows = [{},{},{}],
+            #         fixed_rows={"headers": True, "data": 3},
+            #         # editable=False,
+            #         # TODO: ####selected_row_indices=[3],
+            #         # selected_rows = [3],
+            #         # selected_rows 
+            #         # selected_row_ids 
+            #         id='dataTable-scoreMetrics',
+            #         columns=[
+            #             {"name": "Category", "id": "Category"},
+            #             {"name": "Precision", "id": "Precision"},
+            #             {"name": "Recall", "id": "Recall"},
+            #             {"name": "Average", "id": "Average"},
+            #             {"name": "F1-score", "id": "F1-score"},
+            #             {"name": "Support", "id": "Support"},
+            #         ],
+            #         data=[],
+            #         # TODO: ####column_widths=[200, 75, 75, 75, 75, 75]
+            #         # style_table
+            #         style_table={"column_widths": [200, 75, 75, 75, 75, 75]},
+            #         style_header={"display": 'none'}
+            #     )
+            # ],
             style={'width': '600'}
         ),
             
@@ -418,7 +433,6 @@ app.layout = html.Div([
 )
 
 ################ CALLBACK FUNCTIONS ################
-#app.config.supress_callback_exceptions = True
 
 # updating category preference dropdown
 @app.callback(
@@ -539,19 +553,19 @@ def displayZeroRTN(value, radio):
         return ""
 
 # displaying score metrics table
-@app.callback(
-    dash.dependencies.Output('dataTable-scoreMetrics', 'rows'),
-    [dash.dependencies.Input('intermediate-value', 'children')])
-def displayMetrics(intermediate):
-    data = json.loads(intermediate)
-    metrics = [{'Category': category,
-                    'Precision': data[category]['report'][0], 
-                    'Recall': data[category]['report'][1],
-                    'Average': data[category]['report'][2],
-                    'F1-score': data[category]['report'][3],
-                    'Support': data[category]['report'][4]} for category in data if category != 'Avg/total' and category != 'accuracy']
-    metrics.append({'Category': 'Avg/total', 'Precision': data['Avg/total'][0], 'Recall': data['Avg/total'][1], 'Average': data['Avg/total'][2], 'F1-score': data['Avg/total'][3], 'Support': data['Avg/total'][4]})
-    return metrics
+# @app.callback(
+#     dash.dependencies.Output('dataTable-scoreMetrics', 'fixed_rows'),
+#     [dash.dependencies.Input('intermediate-value', 'children')])
+# def displayMetrics(intermediate):
+#     data = json.loads(intermediate)
+#     metrics = [{'Category': category,
+#                     'Precision': data[category]['report'][0], 
+#                     'Recall': data[category]['report'][1],
+#                     'Average': data[category]['report'][2],
+#                     'F1-score': data[category]['report'][3],
+#                     'Support': data[category]['report'][4]} for category in data if category != 'Avg/total' and category != 'accuracy']
+#     metrics.append({'Category': 'Avg/total', 'Precision': data['Avg/total'][0], 'Recall': data['Avg/total'][1], 'Average': data['Avg/total'][2], 'F1-score': data['Avg/total'][3], 'Support': data['Avg/total'][4]})
+#     return metrics
 
 # displaying ternary graph of samples (HARD)
 @app.callback(
@@ -652,7 +666,7 @@ def displaySampleGraph(intermediate):
                 'baxis': makeAxis(chosenCats[1], minZoom[1]),
                 'caxis': makeAxis(chosenCats[2], minZoom[2])
             },
-            'legend': {'x': 0.65,}
+            'legend': {'x': 0.65,}    # 'y': 0.9 in SK version!!!!!
         }
     }
     return figure
@@ -663,6 +677,9 @@ def displaySampleGraph(intermediate):
     [dash.dependencies.Input('graph-ternarySamples', 'clickData')],
     [dash.dependencies.State('intermediate-value', 'children')])
 def getSelectedData(clickData, intermediate):
+    if not intermediate:
+        return
+
     data = json.loads(intermediate)
     # click -> {'points': [{'curveNumber': 2, 'pointNumber': 18, 'customdata': 'news-Baseball', 'a': 35.965673392081925, 'b': 29.978185948456115, 'c': 34.046140659461955, 'text': '104359'}]}
     # wData -> wData[class][0(probList)], last classes are sampleText(list of words), sampleName
@@ -677,6 +694,9 @@ def getSelectedData(clickData, intermediate):
     dash.dependencies.Output('slider-wordRange', 'value'),
     [dash.dependencies.Input('selected-sample', 'children')])
 def getWordSum(wData):
+    if not wData:
+        return
+
     data = json.loads(wData)
     return [0, len(data['sampleText'])]
 
@@ -685,6 +705,9 @@ def getWordSum(wData):
     dash.dependencies.Output('slider-wordRange', 'max'),
     [dash.dependencies.Input('selected-sample', 'children')])
 def getWordSum(wData):
+    if not wData:
+        return
+
     data = json.loads(wData)
     return len(data['sampleText'])
 
@@ -692,9 +715,8 @@ def getWordSum(wData):
 @app.callback(
     dash.dependencies.Output('graph-ternaryWords', 'figure'),
     [dash.dependencies.Input('selected-sample', 'children'),
-     dash.dependencies.Input('slider-wordRange', 'value'),
-     dash.dependencies.Input('dropdown-categorySelection', 'value')]) # (ALSO WITH OTHER DROPDOWNS) dropdown category selection for 2.7 python fix maybe
-def displayWordGraph(wData, wRange, cats):
+     dash.dependencies.Input('slider-wordRange', 'value')])
+def displayWordGraph(wData, wRange):
     data = json.loads(wData)        # ['class1', 'class2', 'class3', 'sampleText', 'sampleName']
 
     # getting right data format for visualization
@@ -703,7 +725,7 @@ def displayWordGraph(wData, wRange, cats):
     wRawProbs = []                  # sum class log values
     wPercProbs = []                 # wPercProbs[0(prob list of words)][classProb]
 
-    for i in cats:                  # changed 2.7...
+    for i in data:                  # changed 2.7...      # SK version uses data
         chosenCats.append(i)                    # chosenCats['class1', 'class2', 'class3']
 
     for i in range(1+wRange[0], 1+wRange[1]):   # +1 for prior ignore
@@ -832,7 +854,7 @@ def displayWordGraph(wData, wRange, cats):
                 'baxis': makeAxis(chosenCats[1], minZoom[1]),
                 'caxis': makeAxis(chosenCats[2], minZoom[2])
             },
-            'legend': {'x': 0.65}
+            'legend': {'x': 0.65}       # 'y': 0.9 in SK version
         }
     }
     return figure
@@ -842,6 +864,9 @@ def displayWordGraph(wData, wRange, cats):
     dash.dependencies.Output('div-wordRange', 'children'),
     [dash.dependencies.Input('slider-wordRange', 'value')])
 def displayRangePerc(wRange):
+    if not wRange:
+        return
+
     wRange[0] += 1
     return 'Words selection {}'.format(wRange)
 
@@ -851,6 +876,9 @@ def displayRangePerc(wRange):
     [dash.dependencies.Input('slider-wordRange', 'value'),
      dash.dependencies.Input('selected-sample', 'children')])
 def displayText(wRange, wData):
+    if not wData:
+        return
+
     data = json.loads(wData)
     wString = ''
     for i in range(wRange[0], wRange[1]):
@@ -965,8 +993,18 @@ def displayProcess(wRange, wData, chunk):
         }],
         'layout': {
             'title': "<b>Probability classification process</b><br>Sample name: " + data['sampleName'],
-            'xaxis': {'rangeslider': {}},
-            'yaxis': {'title': 'Probability'}
+            'xaxis': {
+                'rangeslider': {},
+                'autorange': True,
+                'showgrid': False,
+                'ticks': '',
+                'showticklabels': False
+            },
+            'yaxis': {
+                'title': 'Probability',
+            },
+            'xside': "top",
+            "height": 500,
         }
     }
     return figure
@@ -1139,7 +1177,7 @@ def updateMultipleOutputs(n_clicks, chosenCategories, radio, fixNum):
     metricsReport = cf.calcReport(skewInfo)         # metricsReport -> [support/TN/FN/TP/FP] 
     metricsReportAVG = metricsReport['Avg/total']
 
-    data = coll.OrderedDict({})                     # for 2.7 deployment fix - doesnt work anyway
+    data = coll.OrderedDict({})                     # for 2.7 deployment fix - doesnt work anyway     # sk version: data = {}
     for i in chosenCategories:                      # data[className]
         data[i] = {'sampleAmount': priors[i],       # data[className]['sampleAmount']                       {counted}
                     'wordFreqs': likelihood[i],     # data[className]['wordFreqs']      ['<word>s']         {counted}
@@ -1161,3 +1199,8 @@ def displayAccuracy(intermediate):
 
 if __name__ == '__main__':
     app.run_server(debug=True)
+
+# dev_tools_ui=False
+# dev_tools_props_check=False
+
+# app.config.supress_callback_exceptions = True
