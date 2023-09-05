@@ -50,48 +50,48 @@ with open(os.path.join("src", "datasets", "dashjupy-content"), "rb") as handle:
 app = dash.Dash()
 
 app.layout = html.Div([
-    # title of the application
-    html.H1('Text classification with Naive Bayesian Classifier',style={'textAlign': 'center'}),
+#     # title of the application
+#     html.H1('Text classification with Naive Bayesian Classifier',style={'textAlign': 'center'}),
     
-    # Naive Bayes intro text
-    html.Div([
-        dcc.Markdown("""**Naive Bayes classifier** is machine learning algorithm using probability theory and Bayes' rule to predict category of samples.  
-                **Learning process** consists of supplying the algorithm with training dataset - samples (text documents) with assigned category.
-                Algorithm will count the frequency of each word in the samples for assigned category and also counts all these samples for each category.  
-                **Classification process** of probability computation is expressed in the following formula:""", 
-                style={'text-align': 'justify', 'font-family': 'Helvetica'}),
+#     # Naive Bayes intro text
+#     html.Div([
+#         dcc.Markdown("""**Naive Bayes classifier** is machine learning algorithm using probability theory and Bayes' rule to predict category of samples.  
+#                 **Learning process** consists of supplying the algorithm with training dataset - samples (text documents) with assigned category.
+#                 Algorithm will count the frequency of each word in the samples for assigned category and also counts all these samples for each category.  
+#                 **Classification process** of probability computation is expressed in the following formula:""", 
+#                 style={'text-align': 'justify', 'font-family': 'Helvetica'}),
     
-        html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
-            style={
-                'width': '30%',
-                'heights': '15%',
-                'display': 'inline-block',
-                'text-align': 'center',
-                'marginLeft': '250px'}),
-        dcc.Markdown("""C_k - category actually being computed  
-        w_i - word actually being computed  
-        K - number of categories  
-        n - number of words in sample""", 
-        style={'display': 'inline-block', 'font-family': 'Helvetica'}),
+#         html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+#             style={
+#                 'width': '30%',
+#                 'heights': '15%',
+#                 'display': 'inline-block',
+#                 'text-align': 'center',
+#                 'marginLeft': '250px'}),
+#         dcc.Markdown("""C_k - category actually being computed  
+#         w_i - word actually being computed  
+#         K - number of categories  
+#         n - number of words in sample""", 
+#         style={'display': 'inline-block', 'font-family': 'Helvetica'}),
 
-        dcc.Markdown("""**Explanation:** We are looking for the highest probable category (y^) into which the unknown sample may belong to.
-        For each of the (K) categories algorithm does probability computation which consists of multiplication of these two probabilities:  
-- **prior probability** P(C_k) - probability of picking a sample assigned to C_k category from all samples
-        in training dataset (#samples in C_k category / #samples in all categories)  
-- **likelihood** -||-P(w_i | C_k) - probability consists of probability multiplications between all (n) words
-        we have in the sample we're trying to predict. These probabilities are calculated with the number of word frequencies
-        in C_k category divided by total amount of words in C_k category.  
-    + There is problem though with likelihood computation where a single zero word occurence would result in zero likelihood probability.
-        Therefore, we need to replace these zero occurence probabilities with either chosen rational number parameter as resulting probability or by Laplace smoothing,
-        which will add one occurence to all category word frequencies.""", style={'text-align': 'justify', 'font-family': 'Helvetica'}),
-    ],
-    style={
-        'paddingLeft': '100px',
-        'paddingRight': '100px',
-        'paddingBottom': '30px'
-        #'boxShadow': '0px 0px 5px 5px rgba(204,204,204,0.4)',
-    }),
-    
+#         dcc.Markdown("""**Explanation:** We are looking for the highest probable category (y^) into which the unknown sample may belong to.
+#         For each of the (K) categories algorithm does probability computation which consists of multiplication of these two probabilities:  
+# - **prior probability** P(C_k) - probability of picking a sample assigned to C_k category from all samples
+#         in training dataset (#samples in C_k category / #samples in all categories)  
+# - **likelihood** -||-P(w_i | C_k) - probability consists of probability multiplications between all (n) words
+#         we have in the sample we're trying to predict. These probabilities are calculated with the number of word frequencies
+#         in C_k category divided by total amount of words in C_k category.  
+#     + There is problem though with likelihood computation where a single zero word occurence would result in zero likelihood probability.
+#         Therefore, we need to replace these zero occurence probabilities with either chosen rational number parameter as resulting probability or by Laplace smoothing,
+#         which will add one occurence to all category word frequencies.""", style={'text-align': 'justify', 'font-family': 'Helvetica'}),
+#     ],
+#     style={
+#         'paddingLeft': '100px',
+#         'paddingRight': '100px',
+#         'paddingBottom': '30px'
+#         #'boxShadow': '0px 0px 5px 5px rgba(204,204,204,0.4)',
+#     }),
+
     # left side section (intro, classification, report)
     html.Div([
         dcc.Markdown('## Classification parameters and results', style={'text-align': 'center'}),
@@ -182,34 +182,59 @@ app.layout = html.Div([
             }
         ),
 
-        # html.Div(
-            # [
-            #     dt.DataTable(
-            #         # TODO: ####rows = [{},{},{}],
-            #         fixed_rows={"headers": True, "data": 3},
-            #         # editable=False,
-            #         # TODO: ####selected_row_indices=[3],
-            #         # selected_rows = [3],
-            #         # selected_rows 
-            #         # selected_row_ids 
-            #         id='dataTable-scoreMetrics',
-            #         columns=[
-            #             {"name": "Category", "id": "Category"},
-            #             {"name": "Precision", "id": "Precision"},
-            #             {"name": "Recall", "id": "Recall"},
-            #             {"name": "Average", "id": "Average"},
-            #             {"name": "F1-score", "id": "F1-score"},
-            #             {"name": "Support", "id": "Support"},
-            #         ],
-            #         data=[],
-            #         # TODO: ####column_widths=[200, 75, 75, 75, 75, 75]
-            #         # style_table
-            #         style_table={"column_widths": [200, 75, 75, 75, 75, 75]},
-            #         style_header={"display": 'none'}
-            #     )
-            # ],
+        html.Div(
+            [
+                dt.DataTable(
+                    # TODO: ####rows = [{},{},{}],
+                    # fixed_rows={"headers": True, "data": 3},
+                    # editable=False,
+                    # TODO: ####selected_row_indices=[3],
+                    # selected_rows = [3],
+                    # selected_rows 
+                    # selected_row_ids 
+                    id='dataTable-scoreMetrics',
+                    columns=[
+                        {"name": "Category", "id": "category_id"},
+                        {"name": "Precision", "id": "precision_id"},
+                        {"name": "Recall", "id": "recall_id"},
+                        {"name": "Average", "id": "average_id"},
+                        {"name": "F1-score", "id": "f1-score_id"},
+                        {"name": "Support", "id": "support_id"},
+                    ],
+                    data=[],
+                    # data=[{
+                    #         "category_id": 123,
+                    #         "precision_id": 223,
+                    #         "recall_id": 323,
+                    #         "average_id": 423,
+                    #         "f1-score_id": 523,
+                    #         "support_id": 623,
+                    #     },{
+                    #         "category_id": 11,
+                    #         "precision_id": 22,
+                    #         "recall_id": 33,
+                    #         "average_id": 44,
+                    #         "f1-score_id": 55,
+                    #         "support_id": 66,
+                    #     },
+                    # ],
+                    style_header={'fontWeight': 'bold'},
+                    style_cell={
+                        'textAlign': 'left',
+                        'font-family':'Helvetica',
+                    },
+                    style_cell_conditional=[
+                        {'if': {'column_id': 'category_id'}, 'width': '30%'},
+                        {'if': {'column_id': 'precision_id'}, 'width': '16%'},
+                        {'if': {'column_id': 'recall_id'}, 'width': '16%'},
+                        {'if': {'column_id': 'average_id'}, 'width': '16%'},
+                        {'if': {'column_id': 'f1-score_id'}, 'width': '16%'},
+                        {'if': {'column_id': 'support_id'}, 'width': '16%'},
+                    ],
+                ),
+            ],
             # style={'width': '600'}
-        # ),
+        ),
             
         # accuracy value output
         html.Br(),
@@ -431,7 +456,7 @@ app.layout = html.Div([
 		'margin': 'auto',
     	'box-shadow': '0px 0px 20px #00070E',
     	'border-style': 'solid',
-    	'border-width': '2px'
+    	'border-width': '2px',
     }
 )
 
@@ -556,19 +581,29 @@ def displayZeroRTN(value, radio):
         return ""
 
 # displaying score metrics table
-# @app.callback(
-#     dash.dependencies.Output('dataTable-scoreMetrics', 'fixed_rows'),
-#     [dash.dependencies.Input('intermediate-value', 'children')])
-# def displayMetrics(intermediate):
-#     data = json.loads(intermediate)
-#     metrics = [{'Category': category,
-#                     'Precision': data[category]['report'][0], 
-#                     'Recall': data[category]['report'][1],
-#                     'Average': data[category]['report'][2],
-#                     'F1-score': data[category]['report'][3],
-#                     'Support': data[category]['report'][4]} for category in data if category != 'Avg/total' and category != 'accuracy']
-#     metrics.append({'Category': 'Avg/total', 'Precision': data['Avg/total'][0], 'Recall': data['Avg/total'][1], 'Average': data['Avg/total'][2], 'F1-score': data['Avg/total'][3], 'Support': data['Avg/total'][4]})
-#     return metrics
+@app.callback(
+    dash.dependencies.Output('dataTable-scoreMetrics', 'data'),
+    [dash.dependencies.Input('intermediate-value', 'children')])
+def displayMetrics(intermediate):
+    data = json.loads(intermediate)
+    rows = [{
+        'category_id': category,
+        'precision_id': data[category]['report'][0], 
+        'recall_id': data[category]['report'][1],
+        'average_id': data[category]['report'][2],
+        'f1-score_id': data[category]['report'][3],
+        'support_id': data[category]['report'][4]} for category in data if category != 'Avg/total' and category != 'accuracy'
+    ]
+    rows.append({
+        'category_id': 'Avg/total',
+        'precision_id': data['Avg/total'][0],
+        'recall_id': data['Avg/total'][1],
+        'average_id': data['Avg/total'][2],
+        'f1-score_id': data['Avg/total'][3],
+        'support_id': data['Avg/total'][4]
+    })
+
+    return rows
 
 # displaying ternary graph of samples (HARD)
 @app.callback(
