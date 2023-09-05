@@ -182,7 +182,7 @@ app.layout = html.Div([
             }
         ),
 
-        html.Div(
+        # html.Div(
             # [
             #     dt.DataTable(
             #         # TODO: ####rows = [{},{},{}],
@@ -208,8 +208,8 @@ app.layout = html.Div([
             #         style_header={"display": 'none'}
             #     )
             # ],
-            style={'width': '600'}
-        ),
+            # style={'width': '600'}
+        # ),
             
         # accuracy value output
         html.Br(),
@@ -219,10 +219,11 @@ app.layout = html.Div([
                 'white-space': 'pre',
                 'textAlign': 'center',
             }
-        )],style={
+        )],
+        style={
             'padding': '25px',
             'marginLeft': '10px',
-            'width': "600",
+            'width': "45%",
             'height': "675",
             'boxShadow': '0px 0px 5px 5px rgba(204,204,204,0.4)',
             'float': 'left'
@@ -268,7 +269,7 @@ app.layout = html.Div([
         style={
             'padding': '25px',              # space between div start and content inside 
             'marginLeft': '665px',          # position placing for not getting overlayed
-            "width": "600",                 # width of the block
+            "width": "45%",                 # width of the block
             "height": "675",
             'boxShadow': '0px 0px 5px 5px rgba(204,204,204,0.4)',
         }
@@ -700,9 +701,7 @@ def getWordSum(wData):
         return
 
     data = json.loads(wData)
-    value = [0, len(data['sampleText'])]
-    print(f"value: {value}")
-    return value
+    return [0, len(data['sampleText'])]
 
 # rangeslider of words (setting max value because 100 is default)
 @app.callback(
@@ -713,8 +712,6 @@ def getWordSum(wData):
         return
 
     data = json.loads(wData)
-    num_of_words = len(data['sampleText'])
-    print(f"max: {num_of_words}")
     return len(data['sampleText'])
 
 # displaying ternary graph of words
