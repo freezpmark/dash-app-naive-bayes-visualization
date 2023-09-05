@@ -339,14 +339,16 @@ app.layout = html.Div([
         # range picker of words
         html.Div([
             dcc.RangeSlider(
+                min=0,
+                max=100,
+                # value=[10, 20],
                 id='slider-wordRange',
-                step=1,
             )],
-            style={
-                'marginLeft': '25px',
-                'display': 'inline-block',
-                'width': '1200'
-            }
+            # style={
+            #     'marginLeft': '25px',
+            #     'display': 'inline-block',
+            #     'width': '1200'
+            # }
         ),
         # tooltip for word selection
         html.Abbr("[?]", 
@@ -377,11 +379,11 @@ app.layout = html.Div([
                     60: '60', 70: '70', 80: '80', 90: '90', 100: '100'
                 }
             )],
-            style={
-                'marginLeft': '25px',
-                'display': 'inline-block',
-                'width': '1200'
-            }
+            # style={
+            #     'marginLeft': '25px',
+            #     'display': 'inline-block',
+            #     'width': '1200'
+            # }
         ),
         # tooltip about reset points
         html.Abbr("[?]", 
@@ -698,7 +700,9 @@ def getWordSum(wData):
         return
 
     data = json.loads(wData)
-    return [0, len(data['sampleText'])]
+    value = [0, len(data['sampleText'])]
+    print(f"value: {value}")
+    return value
 
 # rangeslider of words (setting max value because 100 is default)
 @app.callback(
@@ -709,6 +713,8 @@ def getWordSum(wData):
         return
 
     data = json.loads(wData)
+    num_of_words = len(data['sampleText'])
+    print(f"max: {num_of_words}")
     return len(data['sampleText'])
 
 # displaying ternary graph of words
