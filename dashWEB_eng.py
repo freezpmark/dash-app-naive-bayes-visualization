@@ -217,7 +217,7 @@ app.layout = html.Div([
                 'layout': {
                     'title': 'Number of samples/words in each category',
                     'titlefont': {"size": 20},
-                    'height': '550',
+                    'height': '588',
                     'legend': {
                         "font": {"size": 9}
                     },
@@ -274,12 +274,17 @@ app.layout = html.Div([
 
         # tab selection for different view of the graph
         dcc.Tabs(
-            dcc.Tabs([
-                dcc.Tab(label='Tab 1'),
-                dcc.Tab(label='Tab 2'),
-                dcc.Tab(label='Tab 3'),
-            ]),
-            value='2',
+            [
+                dcc.Tab(
+                    label='Stacked up',
+                    value="0",
+                ),
+                dcc.Tab(
+                    label='Comparison',
+                    value="1",
+                ),
+            ],
+            value='0',
             id='tabs-select'
         ),
 
