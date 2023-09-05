@@ -62,7 +62,7 @@ app.layout = html.Div([
             id='dropdown-categorySelection',
             options= [{'label': str(category),'value': str(category)} for category in priors],
             placeholder="Select three categories for classification",
-            value=['news-Graphics', 'news-Forsale', 'news-Baseball'],
+            value=['news-Medicine', 'news-Politics', 'news-Forsale'],
             multi=True
         ),
 
@@ -969,7 +969,7 @@ def displayProcess(wRange, wData, chunk):
                 'title': 'Probability',
             },
             'xside': "top",
-            "height": 500,
+            "height": 700,  # 500
         }
     }
     return figure
