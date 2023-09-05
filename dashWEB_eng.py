@@ -50,47 +50,6 @@ with open(os.path.join("src", "datasets", "dashjupy-content"), "rb") as handle:
 app = dash.Dash()
 
 app.layout = html.Div([
-#     # title of the application
-#     html.H1('Text classification with Naive Bayesian Classifier',style={'textAlign': 'center'}),
-    
-#     # Naive Bayes intro text
-#     html.Div([
-#         dcc.Markdown("""**Naive Bayes classifier** is machine learning algorithm using probability theory and Bayes' rule to predict category of samples.  
-#                 **Learning process** consists of supplying the algorithm with training dataset - samples (text documents) with assigned category.
-#                 Algorithm will count the frequency of each word in the samples for assigned category and also counts all these samples for each category.  
-#                 **Classification process** of probability computation is expressed in the following formula:""", 
-#                 style={'text-align': 'justify', 'font-family': 'Helvetica'}),
-    
-#         html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
-#             style={
-#                 'width': '30%',
-#                 'heights': '15%',
-#                 'display': 'inline-block',
-#                 'text-align': 'center',
-#                 'marginLeft': '250px'}),
-#         dcc.Markdown("""C_k - category actually being computed  
-#         w_i - word actually being computed  
-#         K - number of categories  
-#         n - number of words in sample""", 
-#         style={'display': 'inline-block', 'font-family': 'Helvetica'}),
-
-#         dcc.Markdown("""**Explanation:** We are looking for the highest probable category (y^) into which the unknown sample may belong to.
-#         For each of the (K) categories algorithm does probability computation which consists of multiplication of these two probabilities:  
-# - **prior probability** P(C_k) - probability of picking a sample assigned to C_k category from all samples
-#         in training dataset (#samples in C_k category / #samples in all categories)  
-# - **likelihood** -||-P(w_i | C_k) - probability consists of probability multiplications between all (n) words
-#         we have in the sample we're trying to predict. These probabilities are calculated with the number of word frequencies
-#         in C_k category divided by total amount of words in C_k category.  
-#     + There is problem though with likelihood computation where a single zero word occurence would result in zero likelihood probability.
-#         Therefore, we need to replace these zero occurence probabilities with either chosen rational number parameter as resulting probability or by Laplace smoothing,
-#         which will add one occurence to all category word frequencies.""", style={'text-align': 'justify', 'font-family': 'Helvetica'}),
-#     ],
-#     style={
-#         'paddingLeft': '100px',
-#         'paddingRight': '100px',
-#         'paddingBottom': '30px'
-#         #'boxShadow': '0px 0px 5px 5px rgba(204,204,204,0.4)',
-#     }),
 
     # left side section (intro, classification, report)
     html.Div([
@@ -182,60 +141,34 @@ app.layout = html.Div([
             }
         ),
 
-        html.Div(
-            [
-                dt.DataTable(
-                    # TODO: ####rows = [{},{},{}],
-                    # fixed_rows={"headers": True, "data": 3},
-                    # editable=False,
-                    # TODO: ####selected_row_indices=[3],
-                    # selected_rows = [3],
-                    # selected_rows 
-                    # selected_row_ids 
-                    id='dataTable-scoreMetrics',
-                    columns=[
-                        {"name": "Category", "id": "category_id"},
-                        {"name": "Precision", "id": "precision_id"},
-                        {"name": "Recall", "id": "recall_id"},
-                        {"name": "Average", "id": "average_id"},
-                        {"name": "F1-score", "id": "f1-score_id"},
-                        {"name": "Support", "id": "support_id"},
-                    ],
-                    data=[],
-                    # data=[{
-                    #         "category_id": 123,
-                    #         "precision_id": 223,
-                    #         "recall_id": 323,
-                    #         "average_id": 423,
-                    #         "f1-score_id": 523,
-                    #         "support_id": 623,
-                    #     },{
-                    #         "category_id": 11,
-                    #         "precision_id": 22,
-                    #         "recall_id": 33,
-                    #         "average_id": 44,
-                    #         "f1-score_id": 55,
-                    #         "support_id": 66,
-                    #     },
-                    # ],
-                    style_header={'fontWeight': 'bold'},
-                    style_cell={
-                        'textAlign': 'left',
-                        'font-family':'Helvetica',
-                    },
-                    style_cell_conditional=[
-                        {'if': {'column_id': 'category_id'}, 'width': '30%'},
-                        {'if': {'column_id': 'precision_id'}, 'width': '16%'},
-                        {'if': {'column_id': 'recall_id'}, 'width': '16%'},
-                        {'if': {'column_id': 'average_id'}, 'width': '16%'},
-                        {'if': {'column_id': 'f1-score_id'}, 'width': '16%'},
-                        {'if': {'column_id': 'support_id'}, 'width': '16%'},
-                    ],
-                ),
-            ],
-            # style={'width': '600'}
-        ),
-            
+        html.Div([
+            dt.DataTable(
+                id='dataTable-scoreMetrics',
+                columns=[
+                    {"name": "Category", "id": "category_id"},
+                    {"name": "Precision", "id": "precision_id"},
+                    {"name": "Recall", "id": "recall_id"},
+                    {"name": "Average", "id": "average_id"},
+                    {"name": "F1-score", "id": "f1-score_id"},
+                    {"name": "Support", "id": "support_id"},
+                ],
+                data=[],
+                style_header={'fontWeight': 'bold'},
+                style_cell={
+                    'textAlign': 'left',
+                    'font-family':'Helvetica',
+                },
+                style_cell_conditional=[
+                    {'if': {'column_id': 'category_id'}, 'width': '30%'},
+                    {'if': {'column_id': 'precision_id'}, 'width': '16%'},
+                    {'if': {'column_id': 'recall_id'}, 'width': '16%'},
+                    {'if': {'column_id': 'average_id'}, 'width': '16%'},
+                    {'if': {'column_id': 'f1-score_id'}, 'width': '16%'},
+                    {'if': {'column_id': 'support_id'}, 'width': '16%'},
+                ],
+            ),
+        ]),
+
         # accuracy value output
         html.Br(),
         html.Div(id='div-accuracy', 
@@ -346,7 +279,6 @@ app.layout = html.Div([
                 dcc.Tab(label='Tab 2'),
                 dcc.Tab(label='Tab 3'),
             ]),
-            # FIXED: ####tabs=[{'label': 'Tab {}'.format(i), 'value': i} for i in range(1, 3)],
             value='2',
             id='tabs-select'
         ),
@@ -367,14 +299,8 @@ app.layout = html.Div([
             dcc.RangeSlider(
                 min=0,
                 max=100,
-                # value=[10, 20],
                 id='slider-wordRange',
             )],
-            # style={
-            #     'marginLeft': '25px',
-            #     'display': 'inline-block',
-            #     'width': '1200'
-            # }
         ),
         # tooltip for word selection
         html.Abbr("[?]", 
@@ -405,11 +331,6 @@ app.layout = html.Div([
                     60: '60', 70: '70', 80: '80', 90: '90', 100: '100'
                 }
             )],
-            # style={
-            #     'marginLeft': '25px',
-            #     'display': 'inline-block',
-            #     'width': '1200'
-            # }
         ),
         # tooltip about reset points
         html.Abbr("[?]", 
@@ -457,6 +378,7 @@ app.layout = html.Div([
     	'box-shadow': '0px 0px 20px #00070E',
     	'border-style': 'solid',
     	'border-width': '2px',
+        # 'backgroundColor': 'black'
     }
 )
 
@@ -1236,9 +1158,7 @@ def displayAccuracy(intermediate):
     return str(data['accuracy'][0]) + " correct classifications out of " + str(data['accuracy'][1]) + " samples\nAccuracy: " + str(round(data['accuracy'][0] / data['accuracy'][1], 3))
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
 
 # dev_tools_ui=False
 # dev_tools_props_check=False
-
-# app.config.supress_callback_exceptions = True
