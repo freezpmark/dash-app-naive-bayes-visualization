@@ -963,7 +963,7 @@ def displayProcess(wRange, wData, chunk):
                 'autorange': True,
                 'showgrid': False,
                 'ticks': '',
-                'showticklabels': False
+                # 'showticklabels': False
             },
             'yaxis': {
                 'title': 'Probability',
