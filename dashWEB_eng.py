@@ -958,18 +958,19 @@ def displayProcess(wRange, wData, chunk):
         }],
         'layout': {
             'title': "<b>Probability classification process</b><br>Sample name: " + data['sampleName'],
-            'xaxis': {
-                'rangeslider': {},
-                'autorange': True,
-                'showgrid': False,
-                'ticks': '',
-                # 'showticklabels': False
-            },
+            # 'xaxis': {
+            #     'rangeslider': {},
+            #     'autorange': True,
+            #     'showgrid': False,
+            #     'ticks': '',
+            #     # 'showticklabels': False
+            # },
             'yaxis': {
                 'title': 'Probability',
             },
             'xside': "top",
             "height": 700,  # 500
+            "hovermode": "x"
         }
     }
     return figure
