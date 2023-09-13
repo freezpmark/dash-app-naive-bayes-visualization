@@ -969,7 +969,7 @@ def displayProcess(wRange, wData, chunk):
                 'title': 'Probability',
             },
             'xside': "top",
-            "height": 700,  # 500
+            "height": 500,
             "hovermode": "x"
         }
     }
