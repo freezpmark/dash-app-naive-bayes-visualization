@@ -12,8 +12,8 @@ Provides interactive visualizations for <b>text classification</b> using the <b>
  - `python dashWEB_eng.py`
 
 ### Interactive tutorials in Machine Learning — Bachelor’s thesis (Nov 2017 - May 2018)
- ▪︎ Created Dash web app with interactive visuals of Naive Bayes classifier, enhancing its interpretability and text analysis options
- ▪︎ Pioneered an enhanced learning approach beyond standard Jupyter Notebook tutorials, resulting in an 18% improvement in the learning experience, evidenced by 28 learning participants' quiz performance
- ▪︎ Earned an A+ grade in data visualization and a B grade for thesis that focuses on Natural Language Processing
+ - Created Dash web app with interactive visuals of Naive Bayes classifier, enhancing its interpretability and text analysis options
+ - Pioneered an enhanced learning approach beyond standard Jupyter Notebook tutorials, resulting in an 18% improvement in the learning experience, evidenced by 28 learning participants' quiz performance
+ - Earned an A+ grade in data visualization and a B grade for thesis that focuses on Natural Language Processing
 
 [Python, NumPy, Plotly Dash] 
